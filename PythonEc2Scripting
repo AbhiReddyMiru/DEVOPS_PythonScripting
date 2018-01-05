@@ -1,0 +1,98 @@
+PYTHON ASSIGNMENT
+1.	Write a program to iterate over all regions and print the running instances with their names and Instances ID
+>>> import boto
+>>> import boto.ec2 as ec2
+>>> AWS_ACCESS_KEY_ID=" "
+>>> AWS_SECRET_ACCESS_KEY=" "
+>>> AWS_REGION="us-east-1"
+>>> connection_ec2=ec2.connect_to_region(AWS_REGION,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+>>> reservations=connection_ec2.get_all_instances()
+>>> print reservations[0]
+
+>>> for i in AWS_REGION:
+	connection_ec2=ec2.connect_to_region(i,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+	print "AWS_REGION: ",i
+	reservations=connection_ec2.get_all_instances()
+	for j in reservations:
+		print "AWS_REGION",j.instances[0].tags['Name'],"Instance ID: ",j.instances[0].id
+    
+OUTPUT:		
+AWS_REGION:  us-east-1
+AWS_REGION USEAST1a Instance ID:  i-03bd2d0878ebaa4c9
+AWS_REGION USEAST1b Instance ID:  i-0c7d0e8b61cec468a
+AWS_REGION:  us-east-2
+AWS_REGION USEAST2a Instance ID:  i-03bc99e8634a3f7a8
+
+######################################################################################################
+2.	 Write a python code to stop all ec2 instances in all AWS regions
+for i in AWS_REGION:
+	connection_ec2=ec2.connect_to_region(i,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+	print "AWS_REGION: ",i
+	reservations=connection_ec2.get_all_instances()
+	for j in reservations:
+		print "AWS_REGION",j.instances[0].tags['Name'],"Instance ID: ",j.instances[0].id
+		j.instances[0].stop()
+		print j.instances[0].state
+
+		OUTPUT:
+AWS_REGION:  us-east-1
+AWS_REGION USEAST1a Instance ID:  i-03bd2d0878ebaa4c9
+stopping
+AWS_REGION USEAST1b Instance ID:  i-0c7d0e8b61cec468a
+stopping
+AWS_REGION:  us-east-2
+AWS_REGION USEAST2a Instance ID:  i-03bc99e8634a3f7a8
+Stopping
+-------------------------------------------------------------------------------------
+AWS_REGION:  us-east-1
+AWS_REGION USEAST1a Instance ID:  i-03bd2d0878ebaa4c9
+stopped
+AWS_REGION USEAST1b Instance ID:  i-0c7d0e8b61cec468a
+stopped
+AWS_REGION:  us-east-2
+AWS_REGION USEAST2a Instance ID:  i-03bc99e8634a3f7a8
+Stopped
+###########################################################################################################
+SAMPLES CODE SNIPPETS
+
+>>> import boto
+>>> import boto.ec2 as ec2
+>>> AWS_ACCESS_KEY_ID=" "
+>>> AWS_SECRET_ACCESS_KEY=" "
+>>> AWS_REGION="us-east-1"
+>>> connection_ec2=ec2.connect_to_region(AWS_REGION,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+>>> reservations=connection_ec2.get_all_instances()
+>>> print reservations[0]
+##############################################Printing each id
+>>> for x in reservations:
+	print x.instances[0]
+Instance:i-03bd2d0878ebaa4c9
+Instance:i-0c7d0e8b61cec468a
+
+
+############################Printing name and id
+>>> for x in reservations:
+	print x.instances[0].tags['Name'],"    Instance ID: ", x.instances[0].id
+USEAST1a     Instance ID:  i-03bd2d0878ebaa4c9
+USEAST1b     Instance ID:  i-0c7d0e8b61cec468a
+####################Connect through dfferent regions
+>>> AWS_REGION=["us-east-1","us-east-2"]
+>>> for i in AWS_REGION:
+connection_ec2=ec2.connect_to_region(i,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+	print connection_ec2
+EC2Connection:ec2.us-east-1.amazonaws.com
+EC2Connection:ec2.us-east-2.amazonaws.com
+for i in AWS_REGION:
+	connection_ec2=ec2.connect_to_region(i,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+	print "AWS_REGION: ",i
+	reservations=connection_ec2.get_all_instances()
+	for j in reservations:
+		print "AWS_REGION",j.instances[0].tags['Name'],"Instance ID: ",j.instances[0].id
+
+		
+AWS_REGION:  us-east-1
+AWS_REGION USEAST1a Instance ID:  i-03bd2d0878ebaa4c9
+AWS_REGION USEAST1b Instance ID:  i-0c7d0e8b61cec468a
+AWS_REGION:  us-east-2
+AWS_REGION USEAST2a Instance ID:  i-03bc99e8634a3f7a8
+
