@@ -1,4 +1,4 @@
-PYTHON ASSIGNMENT
+PYTHON SCRIPT
 1.	Write a program to iterate over all regions and print the running instances with their names and Instances ID
 >>> import boto
 >>> import boto.ec2 as ec2
