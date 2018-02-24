@@ -1,5 +1,5 @@
-PYTHON SCRIPT
-1.	Python code to iterate over all regions and print the running instances with their names and Instances ID
+# PYTHON SCRIPT
+## Python code to iterate over all regions and print the running instances with their names and Instances ID
 >>> import boto
 >>> import boto.ec2 as ec2
 >>> AWS_ACCESS_KEY_ID=" "
@@ -16,7 +16,7 @@ PYTHON SCRIPT
 	for j in reservations:
 		print "AWS_REGION",j.instances[0].tags['Name'],"Instance ID: ",j.instances[0].id
     
-OUTPUT:		
+### OUTPUT:		
 AWS_REGION:  us-east-1
 AWS_REGION USEAST1a Instance ID:  i-03bd2d0878ebaa4c9
 AWS_REGION USEAST1b Instance ID:  i-0c7d0e8b61cec468a
@@ -24,7 +24,7 @@ AWS_REGION:  us-east-2
 AWS_REGION USEAST2a Instance ID:  i-03bc99e8634a3f7a8
 
 ######################################################################################################
-2.	 Python code to stop all ec2 instances in all AWS regions
+##  Python code to stop all ec2 instances in all AWS regions
 for i in AWS_REGION:
 	connection_ec2=ec2.connect_to_region(i,aws_access_key_id=AWS_ACCESS_KEY_ID,aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 	print "AWS_REGION: ",i
@@ -34,7 +34,7 @@ for i in AWS_REGION:
 		j.instances[0].stop()
 		print j.instances[0].state
 
-		OUTPUT:
+### OUTPUT:
 AWS_REGION:  us-east-1
 AWS_REGION USEAST1a Instance ID:  i-03bd2d0878ebaa4c9
 stopping
